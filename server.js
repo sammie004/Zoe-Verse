@@ -7,9 +7,11 @@ app.use(bodyParser.json())
 // require in app dependencies
 const connection = require("./connection/connection")
 const authRoutes = require('./routes/user-auth-route/auth')
+const admin_filter = require('./routes/Admin-routes/search')
 
 // mounting the routes
 app.use('/api/auth', authRoutes)
+app.use('/api/admin', admin_filter)
 // listening to the server
 const port = 3000
 app.listen(port, () => {

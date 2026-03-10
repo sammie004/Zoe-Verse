@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router();
 
 // Importing the signup controller
-const { Onboarding } = require('../../user Authentication/signup');
-const {Login} = require('../../user Authentication/Login')
+const { Onboarding } = require('../../users/signup');
+const {Login} = require('../../users/Login')
 
 // Define the route for user login
 router.post('/login', Login)
