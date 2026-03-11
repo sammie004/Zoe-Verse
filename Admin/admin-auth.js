@@ -24,7 +24,7 @@ const registerHospitalAdmin = async (req, res) => {
 
     const checkAdminQuery = `
         SELECT id
-        FROM hospital_admins
+        FROM super_admins
         WHERE email = ? OR username = ?
     `;
 
@@ -46,7 +46,7 @@ const registerHospitalAdmin = async (req, res) => {
             const hashedPassword = await bcrypt.hash(password, 10);
 
             const insertAdminQuery = `
-                INSERT INTO hospital_admins (
+                INSERT INTO super_admins (
                     facility_id,
                     first_name,
                     last_name,
@@ -79,14 +79,14 @@ const registerHospitalAdmin = async (req, res) => {
                 ],
                 (err, results) => {
                     if (err) {
-                        console.log(`❌ Error creating hospital admin: ${err}`);
+                        console.log(`❌ Error creating super admin: ${err}`);
                         return res.status(500).json({
-                            error: 'An error occurred while creating hospital admin'
+                            error: 'An error occurred while creating super admin'
                         });
                     }
 
                     return res.status(201).json({
-                        message: 'Hospital admin registered successfully',
+                        message: 'super admin registered successfully',
                         admin: {
                             id: results.insertId,
                             first_name,
@@ -115,7 +115,7 @@ const HospitalAdminLogin = (req, res) => {
         })
     } else {
         // check if users actually exist in our database
-        const query = 'SELECT * FROM hospital_admins WHERE email = ?'
+        const query = 'SELECT * FROM super_admins WHERE email = ?'
         connection.query(query, [email], async (err, results) => {
             if (err) {
                 console.log(`an error occured while trying to log you in`, err)
