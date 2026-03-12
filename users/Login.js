@@ -1,5 +1,5 @@
 // dependency imports
-const connectDB = require('../connection/connection');
+const connection = require('../connection/connection');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken')
