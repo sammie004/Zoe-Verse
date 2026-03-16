@@ -53,23 +53,18 @@ const FacilityLogin = (req, res) => {
             console.log(`This user does not exist`)
         }
         const admin = results[0]
-        const Match = bcrypt.compare(password, admin.password, (err, isMatch) => { 
-            if (err) {
-                console.log(`an error occured`, err)
-                return res.status(500).json({message:`An error occured please try again later`})
-            }
-            if(!isMatch) {
-                console.log(`Incorrect password`)
-                return res.status(400).json({message:`Incorrect password`})
-            } else {
-                const token = jwt.sign({ id: admin.id, email: admin.email, role: admin.role }, process.env.JWT_SECRET, { expiresIn: '1h' })
-                console.log(`Login successful`)
-                return res.status(200).json({ message: "Login successful", token })
-            }
-        })
+        const Match = bcrypt.compare(password, admin.password)
+        if(!Match) {
+            console.log(`Invalid credentials`)
+            return res.status(401).json({message: `Invalid credentials`})
+        } else {
+            const token = jwt.sign({id:admin.id, email: admin.email, name: admin.first_name, role: admin.role}, process.env.JWT_SECRET, {expiresIn: '1h'})
+            return res.status(200).json({ message:`Login successful!`, token , email: admin.email, id: admin.id, name: admin.first_name, role: admin.role});
+        }
     })
 }
 module.exports = {
     FacilityOnboarding,
     FacilityLogin
+
 }

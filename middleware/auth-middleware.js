@@ -6,7 +6,7 @@ const SECRET_KEY = process.env.JWT_SECRET || 'supersecretkey';
 // Middleware to authenticate token and attach user info to req.user
 const authenticate = (req, res, next) => {
     const authHeader = req.headers['authorization'];
-    if (!authHeader) return res.status(401).json({ error: 'Authorization header missing' });
+    if (!authHeader) return res.status(401).json({ error: 'No Token Provided' });
 
     const token = authHeader.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Token missing' });

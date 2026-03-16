@@ -30,8 +30,8 @@ const Login = (req, res) => {
             console.log(`the password provided is incorrect!`)
             return res.status(401).json({ error: 'Invalid credentials' });
         } else {
-            const token = jwt.sign({id:user.id, email: user.email}, process.env.JWT_SECRET, {expiresIn: '1h'})
-            return res.status(200).json({ message:`Login successful!`, token , email: user.email, id: user.id});
+            const token = jwt.sign({id:user.id, email: user.email, name:user.first_name}, process.env.JWT_SECRET, {expiresIn: '1h'})
+            return res.status(200).json({ message:`Login successful!`, token , email: user.email, id: user.id, name: user.first_name});
         }
     })
 }
